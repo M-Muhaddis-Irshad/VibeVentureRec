@@ -1,0 +1,16 @@
+node_modules/
+.env
+*.log
+dist/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+crash.log
+.terraform.lock.hcl
+
+# Packer
+packer_output.log
+*.pkrvars.hcl

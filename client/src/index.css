@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-sand-50 text-ink-900 font-sans;
+}
+
+.prose-content {
+  @apply font-serif text-lg leading-relaxed text-ink-800 whitespace-pre-wrap;
+}

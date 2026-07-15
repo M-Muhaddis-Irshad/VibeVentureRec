@@ -1,0 +1,21 @@
+aws_region   = "ap-southeast-1"
+project_name = "vibeventure"
+environment  = "dev"
+
+ami_id        = "ami-REPLACE_WITH_PACKER_OUTPUT"
+instance_type = "t2.micro"
+
+asg_min_size         = 1
+asg_max_size         = 2
+asg_desired_capacity = 1
+
+db_name     = "vibeventure"
+db_username = "vibeventure_admin"
+# db_password should NOT go here — export TF_VAR_db_password instead, e.g.:
+#   export TF_VAR_db_password="use-a-strong-generated-password"
+
+rds_instance_class = "db.t3.micro"
+rds_multi_az       = false
+
+domain_name         = "" # e.g. "vibeventure.com" — leave blank to skip Route53/ACM
+create_route53_zone = false
