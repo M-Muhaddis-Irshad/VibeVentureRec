@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { uploadImage } from "../services/api.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const emptyForm = {
   title: "",
@@ -11,7 +12,12 @@ const emptyForm = {
 };
 
 export default function PostForm({ initialValues, onSubmit, submitLabel = "Publish" }) {
-  const [form, setForm] = useState({ ...emptyForm, ...initialValues });
+  const { user } = useAuth();
+  const [form, setForm] = useState({
+    ...emptyForm,
+    author: user?.name || "",
+    ...initialValues,
+  });
   const [errors, setErrors] = useState({});
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);

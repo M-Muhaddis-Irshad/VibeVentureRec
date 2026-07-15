@@ -6,8 +6,8 @@ export default function CreatePost() {
   const navigate = useNavigate();
 
   async function handleSubmit(payload) {
-    const post = await createPost(payload);
-    navigate(`/posts/${post.id}`);
+    await createPost(payload);
+    navigate("/");
   }
 
   return (

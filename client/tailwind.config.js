@@ -20,6 +20,17 @@ export default {
           800: "#2c2620",
           900: "#1a1611",
         },
+        neon: {
+          cyan:    "#00ffe7",
+          purple:  "#bf5fff",
+          pink:    "#ff2d78",
+          green:   "#39ff14",
+        },
+      },
+      boxShadow: {
+        "neon-cyan":   "0 0 8px #00ffe7, 0 0 24px #00ffe755",
+        "neon-purple": "0 0 8px #bf5fff, 0 0 24px #bf5fff55",
+        "neon-pink":   "0 0 8px #ff2d78, 0 0 24px #ff2d7855",
       },
       fontFamily: {
         fontFamily: {

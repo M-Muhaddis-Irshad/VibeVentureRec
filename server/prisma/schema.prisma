@@ -8,24 +8,39 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
   password  String
   name      String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  posts     Post[]
+  comments  Comment[]
 }
 
 model Post {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   title         String
   content       String
   author        String
   location      String
   coverImageUrl String?
-  tags          String[] @default([])
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  tags          String[]  @default([])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userId        Int?
+  user          User?     @relation(fields: [userId], references: [id])
+  comments      Comment[]
 
   @@index([location])
   @@index([createdAt])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 }

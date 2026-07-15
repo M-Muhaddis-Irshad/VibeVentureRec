@@ -107,6 +107,7 @@ router.post("/", requireAuth, async (req, res) => {
         location: location.trim(),
         coverImageUrl: coverImageUrl || null,
         tags: Array.isArray(tags) ? tags : [],
+        userId: req.user.userId,
       },
     });
 
@@ -135,9 +136,12 @@ router.put("/:id", requireAuth, async (req, res) => {
       return res.status(404).json({ error: "Post not found" });
     }
 
+    if (existing.userId && existing.userId !== req.user.userId) {
+      return res.status(403).json({ error: "You can only edit your own posts" });
+    }
+
     const { title, content, author, location, coverImageUrl, tags } = req.body;
 
-    // If the cover image changed, best-effort clean up the old S3 object.
     if (
       coverImageUrl !== undefined &&
       existing.coverImageUrl &&
@@ -178,6 +182,10 @@ router.delete("/:id", requireAuth, async (req, res) => {
       return res.status(404).json({ error: "Post not found" });
     }
 
+    if (existing.userId && existing.userId !== req.user.userId) {
+      return res.status(403).json({ error: "You can only delete your own posts" });
+    }
+
     await prisma.post.delete({ where: { id } });
 
     if (existing.coverImageUrl) {
@@ -188,6 +196,43 @@ router.delete("/:id", requireAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to delete post" });
+  }
+});
+
+// GET /api/posts/:id/comments
+router.get("/:id/comments", async (req, res) => {
+  try {
+    const postId = parseInt(req.params.id, 10);
+    const comments = await prisma.comment.findMany({
+      where: { postId },
+      orderBy: { createdAt: "asc" },
+      include: { user: { select: { name: true } } },
+    });
+    res.json({ data: comments });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch comments" });
+  }
+});
+
+// POST /api/posts/:id/comments
+router.post("/:id/comments", requireAuth, async (req, res) => {
+  try {
+    const postId = parseInt(req.params.id, 10);
+    const { content } = req.body;
+    if (!content?.trim()) return res.status(400).json({ error: "Comment cannot be empty" });
+
+    const post = await prisma.post.findUnique({ where: { id: postId } });
+    if (!post) return res.status(404).json({ error: "Post not found" });
+
+    const comment = await prisma.comment.create({
+      data: { content: content.trim(), postId, userId: req.user.userId },
+      include: { user: { select: { name: true } } },
+    });
+    res.status(201).json({ data: comment });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to add comment" });
   }
 });
 

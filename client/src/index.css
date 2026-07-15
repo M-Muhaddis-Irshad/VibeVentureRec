@@ -6,6 +6,56 @@ body {
   @apply bg-sand-50 dark:bg-ink-900 text-ink-900 dark:text-sand-100 font-sans;
 }
 
-.prose-content {
-  @apply font-serif text-lg leading-relaxed text-ink-800 whitespace-pre-wrap;
+/* Dark mode: deep near-black with a subtle neon tint */
+.dark body, .dark {
+  background-color: #0d0d14;
 }
+
+.prose-content {
+  @apply font-serif text-lg leading-relaxed text-ink-800 dark:text-sand-100 whitespace-pre-wrap;
+}
+
+/* Neon glow on primary buttons in dark mode */
+.dark .btn-primary,
+.dark a.btn-primary,
+.dark button[class*="bg-clay-5"] {
+  box-shadow: 0 0 10px #bf5fff88, 0 0 2px #bf5fff;
+}
+
+/* Neon border glow on inputs in dark mode */
+.dark input:focus,
+.dark textarea:focus {
+  box-shadow: 0 0 0 2px #00ffe755, 0 0 8px #00ffe733;
+  border-color: #00ffe7 !important;
+  outline: none;
+}
+
+/* Neon underline on nav links in dark mode */
+.dark nav a:hover {
+  text-shadow: 0 0 8px #00ffe7cc;
+  color: #00ffe7;
+}
+
+/* Neon glow on post cards in dark mode */
+.dark .group:hover {
+  box-shadow: 0 0 0 1px #bf5fff44, 0 0 20px #bf5fff22;
+}
+
+/* Neon accent on location badge */
+.dark span[class*="text-clay-6"][class*="bg-clay"] {
+  background-color: #bf5fff18;
+  color: #bf5fff;
+  box-shadow: 0 0 6px #bf5fff44;
+}
+
+/* Neon glow on the brand name */
+.dark a[class*="text-clay-6"][class*="font-serif"] {
+  text-shadow: 0 0 12px #bf5fffaa, 0 0 4px #bf5fff;
+  color: #bf5fff;
+}
+
+/* Neon scrollbar in dark mode */
+.dark ::-webkit-scrollbar { width: 6px; }
+.dark ::-webkit-scrollbar-track { background: #0d0d14; }
+.dark ::-webkit-scrollbar-thumb { background: #bf5fff66; border-radius: 3px; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #bf5fff; }

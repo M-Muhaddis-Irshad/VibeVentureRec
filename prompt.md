@@ -1,1 +1,1 @@
-Create a CloudWatch alarm named "vibeventure-high-cpu" that triggers when CPUUtilization exceeds 75% for the EC2 instance vibeventure-app, and enable basic CloudWatch monitoring on that instance if not already enabled.
+On the vibeventure-app instance, cd into /home/ec2-user/app, run git pull, then rebuild: cd client && npm install && npm run build && pm2 restart vibeventure-client, and cd ../server && npm install && pm2 restart vibeventure-api

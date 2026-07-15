@@ -1,108 +1,35 @@
-name: Deploy
+name: Deploy to EC2
 
 on:
   push:
-    branches: [main]
-
-permissions:
-  id-token: write # required for GitHub OIDC -> AWS role assumption
-  contents: read
-
-env:
-  AWS_REGION: ap-southeast-1
+    branches: [main, master]
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          node-version: "20"
-      - name: Install & build server
-        working-directory: server
-        run: |
-          npm ci
-          npx prisma generate
-      - name: Install & build client
-        working-directory: client
-        run: |
-          npm ci
-          npm run build
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ec2-user/app
 
-  build-ami:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    outputs:
-      ami_id: ${{ steps.packer_output.outputs.ami_id }}
-    steps:
-      - uses: actions/checkout@v4
+            git fetch origin
+            git reset --hard origin/master
 
-      - name: Configure AWS credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
+            cd server
+            npm install
+            npx prisma generate
+            npx prisma migrate deploy
+            pm2 restart vibeventure-api
 
-      - uses: hashicorp/setup-packer@v3
+            cd ../client
+            npm install
+            npm run build
+            pm2 restart vibeventure-client
 
-      - name: Packer init
-        working-directory: packer
-        run: packer init app.pkr.hcl
-
-      - name: Packer build
-        working-directory: packer
-        run: |
-          packer build \
-            -var "aws_region=${{ env.AWS_REGION }}" \
-            -var "app_git_ref=${{ github.sha }}" \
-            -var "app_repo_url=https://github.com/${{ github.repository }}.git" \
-            app.pkr.hcl | tee packer_output.log
-
-      - name: Extract AMI ID
-        id: packer_output
-        working-directory: packer
-        run: |
-          AMI_ID=$(grep -o 'ami-[a-z0-9]*' packer_output.log | tail -1)
-          echo "ami_id=$AMI_ID" >> "$GITHUB_OUTPUT"
-
-  terraform-apply:
-    needs: build-ami
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: terraform
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure AWS credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - uses: hashicorp/setup-terraform@v3
-
-      - run: terraform init
-
-      - run: terraform plan -out=tfplan -var "ami_id=${{ needs.build-ami.outputs.ami_id }}"
-        env:
-          TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
-
-      - run: terraform apply -auto-approve tfplan
-
-  instance-refresh:
-    needs: [build-ami, terraform-apply]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configure AWS credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Trigger ASG instance refresh
-        run: |
-          aws autoscaling start-instance-refresh \
-            --auto-scaling-group-name vibeventure-asg \
-            --preferences '{"MinHealthyPercentage": 50}'
+            pm2 save
+            pm2 status
