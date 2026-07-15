@@ -130,19 +130,17 @@ export default function PostForm({ initialValues, onSubmit, submitLabel = "Publi
 
       <div>
         <label className="block text-sm font-semibold mb-1.5">Cover image</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="text-sm"
-        />
-        {uploading && <p className="text-xs text-ink-800/60 mt-1">Uploading…</p>}
+        <label className="flex flex-col items-center justify-center gap-2 w-full border-2 border-dashed border-sand-300 dark:border-ink-800 rounded-xl py-6 cursor-pointer hover:border-clay-500 hover:bg-sand-50 dark:hover:bg-ink-800 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-clay-500"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span className="text-sm text-ink-800/60 dark:text-sand-300">
+            {uploading ? "Uploading…" : "Click to upload image"}
+          </span>
+          <span className="text-xs text-ink-800/40 dark:text-sand-300/60">PNG, JPG, WEBP up to 5MB</span>
+          <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+        </label>
         {form.coverImageUrl && (
-          <img
-            src={form.coverImageUrl}
-            alt="Cover preview"
-            className="mt-3 rounded-xl w-full max-h-64 object-cover"
-          />
+          <img src={form.coverImageUrl} alt="Cover preview"
+            className="mt-3 rounded-xl w-full max-h-64 object-cover" />
         )}
       </div>
 
