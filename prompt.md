@@ -1,1 +1,0 @@
-On the vibeventure-app instance, cd into /home/ec2-user/app, run git pull, then rebuild: cd client && npm install && npm run build && pm2 restart vibeventure-client, and cd ../server && npm install && pm2 restart vibeventure-api
