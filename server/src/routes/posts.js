@@ -1,6 +1,7 @@
 const express = require("express");
 const prisma = require("../lib/prisma");
 const { deleteImageByUrl } = require("../lib/s3");
+const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
 
@@ -89,7 +90,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /api/posts
-router.post("/", async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   try {
     const errors = validatePostBody(req.body);
     if (errors.length) {
@@ -117,7 +118,7 @@ router.post("/", async (req, res) => {
 });
 
 // PUT /api/posts/:id
-router.put("/:id", async (req, res) => {
+router.put("/:id", requireAuth, async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
     if (Number.isNaN(id)) {
@@ -165,7 +166,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /api/posts/:id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requireAuth, async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
     if (Number.isNaN(id)) {

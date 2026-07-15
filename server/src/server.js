@@ -6,6 +6,8 @@ const postsRouter = require("./routes/posts");
 const uploadRouter = require("./routes/upload");
 const { notFoundHandler, errorHandler } = require("./middleware/errorHandler");
 
+const authRouter = require("./routes/auth");
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -21,6 +23,7 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
+app.use("/api/auth", authRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api/upload", uploadRouter);
 

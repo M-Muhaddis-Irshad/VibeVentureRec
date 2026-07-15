@@ -48,7 +48,7 @@ export default function Home() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by title or location…"
-          className="flex-1 px-4 py-2.5 rounded-full border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white text-sm"
+          className="flex-1 px-4 py-2.5 rounded-full border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white dark:bg-ink-800 dark:border-ink-800 dark:text-sand-100 text-sm"
         />
         <button
           type="submit"

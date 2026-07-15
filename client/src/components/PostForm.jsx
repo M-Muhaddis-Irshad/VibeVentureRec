@@ -92,7 +92,7 @@ export default function PostForm({ initialValues, onSubmit, submitLabel = "Publi
           value={form.title}
           onChange={handleChange}
           placeholder="Three days lost in the Atlas Mountains"
-          className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white"
+          className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white dark:bg-ink-800 dark:border-ink-800 dark:text-sand-100"
         />
         {errors.title && <p className="text-red-600 text-xs mt-1">{errors.title}</p>}
       </div>
@@ -105,7 +105,7 @@ export default function PostForm({ initialValues, onSubmit, submitLabel = "Publi
             value={form.location}
             onChange={handleChange}
             placeholder="Marrakech, Morocco"
-            className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white"
+            className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white dark:bg-ink-800 dark:border-ink-800 dark:text-sand-100"
           />
           {errors.location && <p className="text-red-600 text-xs mt-1">{errors.location}</p>}
         </div>
@@ -116,7 +116,7 @@ export default function PostForm({ initialValues, onSubmit, submitLabel = "Publi
             value={form.author}
             onChange={handleChange}
             placeholder="Your name"
-            className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white"
+            className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white dark:bg-ink-800 dark:border-ink-800 dark:text-sand-100"
           />
           {errors.author && <p className="text-red-600 text-xs mt-1">{errors.author}</p>}
         </div>
@@ -147,7 +147,7 @@ export default function PostForm({ initialValues, onSubmit, submitLabel = "Publi
           value={form.tags}
           onChange={handleChange}
           placeholder="hiking, desert, solo-travel"
-          className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white"
+          className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white dark:bg-ink-800 dark:border-ink-800 dark:text-sand-100"
         />
       </div>
 
@@ -159,7 +159,7 @@ export default function PostForm({ initialValues, onSubmit, submitLabel = "Publi
           onChange={handleChange}
           rows={10}
           placeholder="Tell the story of your journey…"
-          className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white font-serif"
+          className="w-full px-4 py-2.5 rounded-xl border border-sand-300 focus:outline-none focus:ring-2 focus:ring-clay-500 bg-white dark:bg-ink-800 dark:border-ink-800 dark:text-sand-100 font-serif"
         />
         {errors.content && <p className="text-red-600 text-xs mt-1">{errors.content}</p>}
       </div>
