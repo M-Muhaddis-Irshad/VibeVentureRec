@@ -39,8 +39,8 @@ export default function Home() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
       <div className="mb-10">
-        <h1 className="font-serif text-4xl font-bold mb-2">Journal</h1>
-        <p className="text-ink-800/70">Stories from the road, one entry at a time.</p>
+        <h1 className="font-serif text-4xl font-bold mb-2 dark:text-sand-100">Journal</h1>
+        <p className="text-ink-800/70 dark:text-sand-300">Stories from the road, one entry at a time.</p>
       </div>
 
       <form onSubmit={handleSearchSubmit} className="mb-8 flex gap-2 max-w-md">

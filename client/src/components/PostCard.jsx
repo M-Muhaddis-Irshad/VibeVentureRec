@@ -17,7 +17,7 @@ export default function PostCard({ post }) {
   return (
     <Link
       to={`/posts/${post.id}`}
-      className="group block bg-white rounded-2xl overflow-hidden border border-sand-200 hover:shadow-lg transition-shadow"
+      className="group block bg-white dark:bg-ink-800 rounded-2xl overflow-hidden border border-sand-200 dark:border-ink-800 hover:shadow-lg transition-shadow"
     >
       <div className="aspect-[16/9] bg-sand-200 overflow-hidden">
         {post.coverImageUrl ? (
@@ -36,11 +36,11 @@ export default function PostCard({ post }) {
         <span className="inline-block text-xs font-semibold tracking-wide uppercase text-clay-600 bg-clay-500/10 px-2.5 py-1 rounded-full mb-3">
           {post.location}
         </span>
-        <h3 className="font-serif text-xl font-bold mb-2 text-ink-900 group-hover:text-clay-600 transition-colors">
+        <h3 className="font-serif text-xl font-bold mb-2 text-ink-900 dark:text-sand-100 group-hover:text-clay-600 transition-colors">
           {post.title}
         </h3>
-        <p className="text-sm text-ink-800/80 mb-4">{excerpt(post.content)}</p>
-        <div className="flex items-center justify-between text-xs text-ink-800/60">
+        <p className="text-sm text-ink-800/80 dark:text-sand-300 mb-4">{excerpt(post.content)}</p>
+        <div className="flex items-center justify-between text-xs text-ink-800/60 dark:text-sand-300">
           <span>By {post.author}</span>
           <span>{formatDate(post.createdAt)}</span>
         </div>

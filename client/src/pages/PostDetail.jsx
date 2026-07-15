@@ -75,9 +75,9 @@ export default function PostDetail() {
         {post.location}
       </span>
 
-      <h1 className="font-serif text-4xl font-bold mb-3">{post.title}</h1>
+      <h1 className="font-serif text-4xl font-bold mb-3 dark:text-sand-100">{post.title}</h1>
 
-      <div className="flex items-center justify-between text-sm text-ink-800/60 mb-8 border-b border-sand-200 pb-6">
+      <div className="flex items-center justify-between text-sm text-ink-800/60 dark:text-sand-300 mb-8 border-b border-sand-200 pb-6">
         <span>
           By {post.author} · {formatDate(post.createdAt)}
         </span>

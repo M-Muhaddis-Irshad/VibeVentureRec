@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-sand-50 text-ink-900 font-sans;
+  @apply bg-sand-50 dark:bg-ink-900 text-ink-900 dark:text-sand-100 font-sans;
 }
 
 .prose-content {
