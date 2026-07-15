@@ -68,3 +68,8 @@ Users -> Route53 -> ALB (TLS via ACM) -> Auto Scaling Group (EC2, 1-2 AZ) -> RDS
                                               S3 (post images)
 GitHub push -> GitHub Actions -> Packer (bakes AMI) -> Terraform apply -> ASG instance refresh
 ```
+
+##About
+
+A full-stack travel journal built with React + Vite frontend, Node.js/Express + Prisma backend, PostgreSQL database, image storage on AWSS3, and production infrastructure managed via Terraform (VPC, ALB, Auto Scaling, RDS) with automated CI/CD through GitHub Actions and Packer
+-baked AMIs.
