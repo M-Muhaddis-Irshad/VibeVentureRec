@@ -4,58 +4,56 @@
 
 body {
   @apply bg-sand-50 dark:bg-ink-900 text-ink-900 dark:text-sand-100 font-sans;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Dark mode: deep near-black with a subtle neon tint */
 .dark body, .dark {
-  background-color: #0d0d14;
+  background-color: #111118;
 }
 
 .prose-content {
   @apply font-serif text-lg leading-relaxed text-ink-800 dark:text-sand-100 whitespace-pre-wrap;
 }
 
-/* Neon glow on primary buttons in dark mode */
-.dark .btn-primary,
-.dark a.btn-primary,
-.dark button[class*="bg-clay-5"] {
-  box-shadow: 0 0 10px #bf5fff88, 0 0 2px #bf5fff;
+/* Subtle warm glow on primary buttons in dark mode */
+.dark button[class*="bg-clay-5"],
+.dark a[class*="bg-clay-5"] {
+  box-shadow: 0 1px 12px rgba(181, 101, 74, 0.35);
 }
 
-/* Neon border glow on inputs in dark mode */
+/* Refined focus ring on inputs in dark mode */
 .dark input:focus,
 .dark textarea:focus {
-  box-shadow: 0 0 0 2px #00ffe755, 0 0 8px #00ffe733;
-  border-color: #00ffe7 !important;
+  box-shadow: 0 0 0 2px rgba(181, 101, 74, 0.4);
+  border-color: #b5654a !important;
   outline: none;
 }
 
-/* Neon underline on nav links in dark mode */
+/* Subtle hover on nav links in dark mode */
 .dark nav a:hover {
-  text-shadow: 0 0 8px #00ffe7cc;
-  color: #00ffe7;
+  color: #d4956e;
 }
 
-/* Neon glow on post cards in dark mode */
+/* Soft card lift in dark mode */
 .dark .group:hover {
-  box-shadow: 0 0 0 1px #bf5fff44, 0 0 20px #bf5fff22;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(181, 101, 74, 0.15);
 }
 
-/* Neon accent on location badge */
+/* Location badge in dark mode */
 .dark span[class*="text-clay-6"][class*="bg-clay"] {
-  background-color: #bf5fff18;
-  color: #bf5fff;
-  box-shadow: 0 0 6px #bf5fff44;
+  background-color: rgba(181, 101, 74, 0.12);
+  color: #d4956e;
 }
 
-/* Neon glow on the brand name */
+/* Brand name in dark mode */
 .dark a[class*="text-clay-6"][class*="font-serif"] {
-  text-shadow: 0 0 12px #bf5fffaa, 0 0 4px #bf5fff;
-  color: #bf5fff;
+  color: #d4956e;
+  letter-spacing: -0.01em;
 }
 
-/* Neon scrollbar in dark mode */
-.dark ::-webkit-scrollbar { width: 6px; }
-.dark ::-webkit-scrollbar-track { background: #0d0d14; }
-.dark ::-webkit-scrollbar-thumb { background: #bf5fff66; border-radius: 3px; }
-.dark ::-webkit-scrollbar-thumb:hover { background: #bf5fff; }
+/* Scrollbar in dark mode */
+.dark ::-webkit-scrollbar { width: 5px; }
+.dark ::-webkit-scrollbar-track { background: #111118; }
+.dark ::-webkit-scrollbar-thumb { background: rgba(181, 101, 74, 0.4); border-radius: 3px; }
+.dark ::-webkit-scrollbar-thumb:hover { background: rgba(181, 101, 74, 0.7); }
